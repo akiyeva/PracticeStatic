@@ -1,4 +1,6 @@
-﻿namespace PracticeStatic
+﻿using System.Reflection.Metadata.Ecma335;
+
+namespace PracticeStatic
 {
     public class Program
     {
@@ -64,12 +66,19 @@
             Console.WriteLine("Enter email address:");
             string email = Console.ReadLine();
 
-            Console.WriteLine("Enter password:");
-            string password = Console.ReadLine();
-
-            return new User(fullName, email, password);
+            while (true)
+            {
+                Console.WriteLine("Enter password:");
+                string password = Console.ReadLine();
+                if (!User.PasswordChecker(password))
+                {
+                    Console.WriteLine("Please use a strong password.");
+                    continue;
+                }
+                else
+                    return new User(fullName, email, password);
+            }
         }
-
 
         public static void ShowAllUsers(User[] users)
         {
